@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 PlanetaTIC - Marc Poch <mpoch@planetatic.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record
+        id="product_product_brand_connector_prestashop_tree_view"
+        model="ir.ui.view"
+    >
+        <field name="model">prestashop.product.brand</field>
+        <field name="arch" type="xml">
+            <tree string="PrestaShop Product Brand" create="0">
+                <field name="backend_id" string="Backend" />
+                <field name="prestashop_id" />
+                <field name="date_add" />
+                <field name="date_upd" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_brand_connector_prestashop_form_view" model="ir.ui.view">
+        <field name="name">prestashop.product.brand.form.view</field>
+        <field name="model">prestashop.product.brand</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="PrestaShop Product Brand">
+                <group string="Primary Data">
+                    <field name="backend_id" string="Backend" />
+                    <field name="prestashop_id" />
+                    <field name="date_add" />
+                    <field name="date_upd" />
+                </group>
+                <group string="Descriptions">
+                    <field name="name" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_brand_prestashop_binding_form_view" model="ir.ui.view">
+        <field name="model">product.brand</field>
+        <field name="inherit_id" ref="product_brand.view_product_brand_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='description']/ancestor::*[1]" position="after">
+                <group
+                    string="PrestaShop Binding"
+                    groups="connector.group_connector_manager"
+                >
+                    <field name="prestashop_bind_ids" nolabel="1" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
